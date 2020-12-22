@@ -16,7 +16,7 @@ const Home: FC<HomeProps> = ({ recentItems }) => {
       <p>Name: {name}</p>
       <p>Can Eat?: {canEat}</p>
       <p>Description: {description}</p>
-      <Link href={`https://candogseat.me/${id}`}>
+      <Link href={`https://candogseat.me/items/${id}`}>
         <a>{name}</a>
       </Link>
     </div>
