@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { useRouter } from "next/router";
+import Head from "next/head";
 import { FC } from "react";
 import { connectToDatabase } from "../../util/mongodb";
 import { ObjectId } from "mongodb";
@@ -13,9 +13,14 @@ interface ItemProps {
 const Item: FC<ItemProps> = ({ id, name, description }) => {
   return (
     <>
-      <p>ID: {id}</p>
-      <p>Name: {name}</p>
-      <p>description: {description}</p>
+      <Head>
+        <title>Can Dogs Eat - {name}</title>
+      </Head>
+      <main>
+        <p>ID: {id}</p>
+        <p>Name: {name}</p>
+        <p>description: {description}</p>
+      </main>
     </>
   );
 };

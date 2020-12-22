@@ -1,5 +1,6 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import { ItemModel, RawItemModel } from "../types/ItemModel";
 import { connectToDatabase } from "../util/mongodb";
@@ -15,6 +16,9 @@ const Home: FC<HomeProps> = ({ recentItems }) => {
       <p>Name: {name}</p>
       <p>Can Eat?: {canEat}</p>
       <p>Description: {description}</p>
+      <Link href={`https://candogseat.me/${id}`}>
+        <a>{name}</a>
+      </Link>
     </div>
   ));
 
