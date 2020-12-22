@@ -2,7 +2,7 @@ import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
-import { ItemModel, RawItemModel } from "../types/ItemModel";
+import { ItemModel, RawItemDocument } from "../types/ItemModel";
 import { connectToDatabase } from "../util/mongodb";
 import { FC } from "react";
 
@@ -39,7 +39,8 @@ const Home: FC<HomeProps> = ({ recentItems }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const { db } = await connectToDatabase();
-  const recentItems: RawItemModel[] = await db.collection("items").find({}).limit(10).toArray();
+  const recentItems: RawItemDocument[] = await db.collection("items").find({}).limit(10).toArray();
+
   const processed = recentItems.map<ItemModel>((item) => ({
     id: item._id.toHexString(),
     name: item.name,

@@ -6,7 +6,7 @@ enum CanEat {
   InModeration = "InModeration",
 }
 
-export interface RawItemModel {
+export interface RawItemDocument {
   readonly _id: ObjectId;
   readonly name: string;
   readonly description: string;

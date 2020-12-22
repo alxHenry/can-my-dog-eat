@@ -3,14 +3,13 @@ import Head from "next/head";
 import { FC } from "react";
 import { connectToDatabase } from "../../util/mongodb";
 import { ObjectId } from "mongodb";
+import { ItemModel, RawItemDocument } from "../../types/ItemModel";
 
 interface ItemProps {
-  id: string;
-  name: string;
-  description: string;
+  item: ItemModel;
 }
 
-const Item: FC<ItemProps> = ({ id, name, description }) => {
+const Item: FC<ItemProps> = ({ item: { id, name, description, canEat } }) => {
   return (
     <>
       <Head>
@@ -19,7 +18,8 @@ const Item: FC<ItemProps> = ({ id, name, description }) => {
       <main>
         <p>ID: {id}</p>
         <p>Name: {name}</p>
-        <p>description: {description}</p>
+        <p>Can Eat: {canEat}</p>
+        <p>Description: {description}</p>
       </main>
     </>
   );
@@ -42,13 +42,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 
   const { db } = await connectToDatabase();
-  const item = await db.collection("items").findOne({ _id: new ObjectId(params.id as string) });
+  const item: RawItemDocument | null = await db.collection("items").findOne({ _id: new ObjectId(params.id as string) });
+
+  if (!item) {
+    return { notFound: true };
+  }
+
+  const processed: ItemModel = {
+    id: item._id.toHexString(),
+    name: item.name,
+    description: item.description,
+    canEat: item.canEat,
+  };
 
   return {
     props: {
-      id: item._id.toString(),
-      name: item.name,
-      description: item.description,
+      item: processed,
     },
   };
 };
