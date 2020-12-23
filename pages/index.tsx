@@ -23,15 +23,17 @@ const Home: FC<HomeProps> = ({ recentItems }) => {
   ));
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Can Dogs Eat?</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h2>Recent Items</h2>
-        {recentItemsList}
+      <main>
+        <section id="recent-items">
+          <h2>Recent Items</h2>
+          {recentItemsList}
+        </section>
       </main>
     </div>
   );
@@ -39,7 +41,11 @@ const Home: FC<HomeProps> = ({ recentItems }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const { db } = await connectToDatabase();
-  const recentItems: RawItemDocument[] = await db.collection("items").find({}).limit(10).toArray();
+  const recentItems: RawItemDocument[] = await db
+    .collection("items")
+    .find({})
+    .limit(10)
+    .toArray();
 
   const processed = recentItems.map<ItemModel>((item) => ({
     id: item._id.toHexString(),
