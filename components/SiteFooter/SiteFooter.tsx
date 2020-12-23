@@ -4,9 +4,9 @@ import Link from "next/link";
 const SiteFooter: FC = () => {
   return (
     <footer>
-      <h6 className="SEO-safe-hidden">Footer</h6>
+      <h4 className="SEO-safe-hidden">Footer</h4>
       <section id="copyright">
-        <h6 className="SEO-safe-hidden">Attribution and Copyright</h6>
+        <h5 className="SEO-safe-hidden">Attribution and Copyright</h5>
         <Link href="/credits">
           <a>Credits</a>
         </Link>

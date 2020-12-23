@@ -14,6 +14,7 @@ const Item: FC<ItemProps> = ({ item: { id, name, description, canEat } }) => {
     <>
       <Head>
         <title>Can Dogs Eat - {name}</title>
+        <meta name="Description" content={`Can dogs eat ${name}?`}></meta>
       </Head>
       <main>
         <p>ID: {id}</p>

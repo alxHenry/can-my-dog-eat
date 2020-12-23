@@ -12,14 +12,14 @@ interface HomeProps {
 
 const Home: FC<HomeProps> = ({ recentItems }) => {
   const recentItemsList = recentItems.map(({ id, name, description, canEat }) => (
-    <div key={id}>
-      <p>Name: {name}</p>
+    <section key={id}>
+      <h3>{name}</h3>
       <p>Can Eat?: {canEat}</p>
       <p>Description: {description}</p>
       <Link href={`https://candogseat.me/items/${id}`}>
-        <a>{name}</a>
+        <a>View page</a>
       </Link>
-    </div>
+    </section>
   ));
 
   return (
@@ -27,6 +27,7 @@ const Home: FC<HomeProps> = ({ recentItems }) => {
       <Head>
         <title>Can Dogs Eat?</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="Description" content="Help dog owners decide if their dog can eat a food." />
       </Head>
 
       <main>
