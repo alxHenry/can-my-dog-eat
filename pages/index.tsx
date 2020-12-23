@@ -30,10 +30,10 @@ const Home: FC<HomeProps> = ({ recentItems }) => {
       </Head>
 
       <main>
-        <section id="recent-items">
+        <article>
           <h2>Recent Items</h2>
           {recentItemsList}
-        </section>
+        </article>
       </main>
     </div>
   );

@@ -6,13 +6,10 @@ const SiteHeader: FC = () => {
     <header>
       <h1>Can Dogs Dine?</h1>
       <nav>
-        <ul>
-          <li>
-            <Link href="/">
-              <img height="80" width="80" src="/header-logo.min.svg" alt="Logo" aria-label="Navigate home" />
-            </Link>
-          </li>
-        </ul>
+        <h6 className="SEO-safe-hidden">Navigation</h6>
+        <Link href="/">
+          <img height="80" width="80" src="/header-logo.min.svg" alt="Logo" aria-label="Navigate home" />
+        </Link>
       </nav>
     </header>
   );

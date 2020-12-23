@@ -13,3 +13,8 @@ body {
 ul {
   list-style-type: none;
 }
+
+.SEO-safe-hidden {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+}
