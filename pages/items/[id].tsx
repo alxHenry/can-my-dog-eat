@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import { FC } from "react";
-import { connectToDatabase } from "../../util/mongodb";
+import { connectToDatabase, getAllItems } from "../../util/mongodb";
 import { ObjectId } from "mongodb";
 import { ItemModel, RawItemDocument } from "../../types/ItemModel";
 
@@ -27,8 +27,7 @@ const Item: FC<ItemProps> = ({ item: { id, name, description, canEat } }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { db } = await connectToDatabase();
-  const items = await db.collection("items").find({}).toArray();
+  const items = await getAllItems();
   const paths = items.map((item: any) => `/items/${item._id.toString()}`);
 
   return {

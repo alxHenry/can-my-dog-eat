@@ -1,18 +1,9 @@
 import { Db, MongoClient } from "mongodb";
+import { RawItemDocument } from "../types/ItemModel";
 
 interface MongoConnection {
   db: Db;
   client: MongoClient;
-}
-
-const { MONGODB_URI, MONGODB_DB } = process.env;
-
-if (!MONGODB_URI) {
-  throw new Error("Please define the MONGODB_URI environment variable inside .env.local");
-}
-
-if (!MONGODB_DB) {
-  throw new Error("Please define the MONGODB_DB environment variable inside .env.local");
 }
 
 /**
@@ -24,9 +15,19 @@ let cachedConnection: MongoConnection;
 let promise: Promise<MongoConnection>;
 
 type ConnectToDatabase = () => Promise<MongoConnection>;
-export const connectToDatabase = async () => {
+export const connectToDatabase: ConnectToDatabase = async () => {
   if (cachedConnection) {
     return cachedConnection;
+  }
+
+  const { MONGODB_URI: mongoUri, MONGODB_DB: mongoDb } = process.env;
+
+  if (!mongoUri) {
+    throw new Error("Please define the mongo Uri environment variable inside .env.local or pass as options");
+  }
+
+  if (!mongoDb) {
+    throw new Error("Please define the mongo Db environment variable inside .env.local or pass as options");
   }
 
   if (!promise) {
@@ -35,8 +36,8 @@ export const connectToDatabase = async () => {
       useUnifiedTopology: true,
     };
 
-    promise = MongoClient.connect(MONGODB_URI!, opts).then((client) => {
-      const db = client.db(MONGODB_DB);
+    promise = MongoClient.connect(mongoUri!, opts).then((client) => {
+      const db = client.db(mongoDb);
       cachedConnection = {
         db,
         client,
@@ -48,4 +49,13 @@ export const connectToDatabase = async () => {
 
   const connection = await promise;
   return connection;
+};
+
+type GetAllItems = () => Promise<RawItemDocument[]>;
+export const getAllItems: GetAllItems = async () => {
+  const { db } = await connectToDatabase();
+  return db
+    .collection("items")
+    .find({})
+    .toArray();
 };
