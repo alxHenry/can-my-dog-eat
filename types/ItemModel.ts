@@ -8,6 +8,7 @@ export enum CanEat {
 
 export enum ItemCategory {
   Vegetable = "vegetable",
+  Sweets = "sweets",
 }
 
 export interface RawItemDocument {
