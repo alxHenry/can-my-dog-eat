@@ -1,11 +1,10 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import { ItemModel, RawItemDocument } from "../types/ItemModel";
 import { connectToDatabase } from "../util/mongodb";
-import { Link as UILink } from "@chakra-ui/react";
 import { FC } from "react";
-import ItemCard from "../components/ItemCard/ItemCard";
+import { Box, Center, VStack } from "@chakra-ui/react";
+import ItemPreviewCard from "../components/ItemPreviewCard";
 
 interface HomeProps {
   readonly recentItems: ItemModel[];
@@ -14,7 +13,7 @@ interface HomeProps {
 const Home: FC<HomeProps> = ({ recentItems }) => {
   const recentItemsList = recentItems.map((item) => (
     <section key={item.id}>
-      <ItemCard item={item} />
+      <ItemPreviewCard item={item} />
     </section>
   ));
 
@@ -28,8 +27,14 @@ const Home: FC<HomeProps> = ({ recentItems }) => {
 
       <main>
         <article>
-          <h2>Recent Items</h2>
-          {recentItemsList}
+          <Center>
+            <Box>
+              <h2>Recent Items</h2>
+              <VStack spacing="8px" maxWidth="700px">
+                {recentItemsList}
+              </VStack>
+            </Box>
+          </Center>
         </article>
       </main>
     </div>
