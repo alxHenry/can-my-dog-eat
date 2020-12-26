@@ -5,6 +5,7 @@ import React, { FC, useEffect } from "react";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 import { logPageView } from "../util/gtag";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter();
@@ -21,11 +22,11 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   }, [router]);
 
   return (
-    <>
+    <ChakraProvider>
       <SiteHeader />
       <Component {...pageProps} />
       <SiteFooter />
-    </>
+    </ChakraProvider>
   );
 };
 

@@ -1,26 +1,45 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
-import { FC } from "react";
+import React, { FC } from "react";
 import { connectToDatabase, getAllItems } from "../../util/mongodb";
 import { ObjectId } from "mongodb";
 import { ItemModel, RawItemDocument } from "../../types/ItemModel";
+import { Box, Center, Text } from "@chakra-ui/react";
+import CanEatText from "./CanEatText";
+
+import styles from "./[id].module.css";
 
 interface ItemProps {
   item: ItemModel;
 }
 
+const captializeFirstLetter = (str: string) => {
+  return str[0].toUpperCase() + str.substring(1);
+};
+
 const Item: FC<ItemProps> = ({ item: { id, name, description, canEat } }) => {
+  const capitalizedName = captializeFirstLetter(name);
+
   return (
     <>
       <Head>
-        <title>Can Dogs Eat - {name}</title>
+        <title>Can Dogs Eat {capitalizedName}?</title>
         <meta name="Description" content={`Can dogs eat ${name}?`}></meta>
       </Head>
       <main>
-        <p>ID: {id}</p>
-        <p>Name: {name}</p>
-        <p>Can Eat: {canEat}</p>
-        <p>Description: {description}</p>
+        <article>
+          <Center>
+            <Box borderWidth="1px" borderColor="#e2e8ef" borderRadius="8px" padding="20px" center>
+              <Center>
+                <h2 className={styles.itemHeader}>Can Dogs Eat {capitalizedName}?</h2>
+              </Center>
+              <Center>
+                <CanEatText canEat={canEat} />
+              </Center>
+              <Text>{description}</Text>
+            </Box>
+          </Center>
+        </article>
       </main>
     </>
   );
@@ -53,6 +72,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     name: item.name,
     description: item.description,
     canEat: item.canEat,
+    category: item.category,
+    imageLink: item.imageLink,
   };
 
   return {

@@ -1,9 +1,13 @@
 import { ObjectId } from "mongodb";
 
-enum CanEat {
-  Yes = "Yes",
-  No = "No",
-  InModeration = "InModeration",
+export enum CanEat {
+  Yes = "yes",
+  No = "no",
+  InModeration = "inModeration",
+}
+
+export enum ItemCategory {
+  Vegetable = "vegetable",
 }
 
 export interface RawItemDocument {
@@ -11,6 +15,8 @@ export interface RawItemDocument {
   readonly name: string;
   readonly description: string;
   readonly canEat: CanEat;
+  readonly category: ItemCategory;
+  readonly imageLink?: string;
 }
 
 export interface ItemModel {
@@ -18,4 +24,6 @@ export interface ItemModel {
   readonly name: string;
   readonly description: string;
   readonly canEat: CanEat;
+  readonly category: ItemCategory;
+  readonly imageLink?: string;
 }

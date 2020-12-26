@@ -16,7 +16,7 @@ const Home: FC<HomeProps> = ({ recentItems }) => {
       <h3>{name}</h3>
       <p>Can Eat?: {canEat}</p>
       <p>Description: {description}</p>
-      <Link href={`https://candogseat.me/items/${id}`}>
+      <Link href={`/items/${id}`}>
         <a>View page</a>
       </Link>
     </section>
@@ -42,17 +42,15 @@ const Home: FC<HomeProps> = ({ recentItems }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const { db } = await connectToDatabase();
-  const recentItems: RawItemDocument[] = await db
-    .collection("items")
-    .find({})
-    .limit(10)
-    .toArray();
+  const recentItems: RawItemDocument[] = await db.collection("items").find({}).limit(10).toArray();
 
   const processed = recentItems.map<ItemModel>((item) => ({
     id: item._id.toHexString(),
     name: item.name,
     canEat: item.canEat,
     description: item.description,
+    category: item.category,
+    imageLink: item.imageLink,
   }));
 
   return {

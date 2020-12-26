@@ -1,0 +1,25 @@
+.headerBar {
+  background-color: #e4534e;
+  height: 64px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.headerTitle {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 28px;
+  font-family: "Noto Sans JP", sans-serif;
+  cursor: pointer;
+}
+
+.headerLogo {
+  cursor: pointer;
+}
+
+.headerSpacer {
+  margin-top: 80px;
+}
