@@ -17,8 +17,14 @@ const captializeFirstLetter = (str: string) => {
   return str[0].toUpperCase() + str.substring(1);
 };
 
-const Item: FC<ItemProps> = ({ item: { id, name, description, canEat } }) => {
+const Item: FC<ItemProps> = ({ item: { name, description, canEat, imageLink } }) => {
   const capitalizedName = captializeFirstLetter(name);
+
+  const imageElement = (
+    <Center>
+      <img className={styles.itemImage} src={imageLink}></img>
+    </Center>
+  );
 
   return (
     <>
@@ -29,10 +35,11 @@ const Item: FC<ItemProps> = ({ item: { id, name, description, canEat } }) => {
       <main>
         <article>
           <Center>
-            <Box borderWidth="1px" borderColor="#e2e8ef" borderRadius="8px" padding="20px" center>
+            <Box borderWidth="1px" borderColor="#e2e8ef" borderRadius="8px" padding="20px" marginX="4px">
               <Center>
                 <h2 className={styles.itemHeader}>Can Dogs Eat {capitalizedName}?</h2>
               </Center>
+              {imageElement}
               <Center>
                 <CanEatText canEat={canEat} />
               </Center>

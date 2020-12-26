@@ -5,3 +5,8 @@
   font-family: "Noto Sans JP", sans-serif;
   margin-bottom: 12px;
 }
+
+.itemImage {
+  border-radius: 16px;
+  margin-bottom: 12px;
+}
