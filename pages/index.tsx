@@ -5,20 +5,16 @@ import { ItemModel, RawItemDocument } from "../types/ItemModel";
 import { connectToDatabase } from "../util/mongodb";
 import { Link as UILink } from "@chakra-ui/react";
 import { FC } from "react";
+import ItemCard from "../components/ItemCard/ItemCard";
 
 interface HomeProps {
   readonly recentItems: ItemModel[];
 }
 
 const Home: FC<HomeProps> = ({ recentItems }) => {
-  const recentItemsList = recentItems.map(({ id, name, description, canEat }) => (
-    <section key={id}>
-      <h3>{name}</h3>
-      <p>Can Eat?: {canEat}</p>
-      <p>Description: {description}</p>
-      <Link href={`/items/${id}`}>
-        <UILink color="#0000FF">View page</UILink>
-      </Link>
+  const recentItemsList = recentItems.map((item) => (
+    <section key={item.id}>
+      <ItemCard item={item} />
     </section>
   ));
 

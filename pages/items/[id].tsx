@@ -4,21 +4,14 @@ import React, { FC } from "react";
 import { connectToDatabase, getAllItems } from "../../util/mongodb";
 import { ObjectId } from "mongodb";
 import { ItemModel, RawItemDocument } from "../../types/ItemModel";
-import { Box, Center, Text } from "@chakra-ui/react";
-import CanEatText from "./CanEatText";
-
-import styles from "./[id].module.css";
+import ItemCard from "../../components/ItemCard/ItemCard";
 
 interface ItemProps {
   item: ItemModel;
 }
 
-const Item: FC<ItemProps> = ({ item: { name, description, canEat, imageLink } }) => {
-  const imageElement = (
-    <Center>
-      <img className={styles.itemImage} src={imageLink}></img>
-    </Center>
-  );
+const Item: FC<ItemProps> = ({ item }) => {
+  const { name } = item;
 
   return (
     <>
@@ -27,20 +20,7 @@ const Item: FC<ItemProps> = ({ item: { name, description, canEat, imageLink } })
         <meta name="Description" content={`Can dogs eat ${name}?`}></meta>
       </Head>
       <main>
-        <article>
-          <Center>
-            <Box borderWidth="1px" borderColor="#e2e8ef" borderRadius="8px" padding="20px" marginX="8px">
-              <Center>
-                <h2 className={styles.itemHeader}>Can dogs eat {name}?</h2>
-              </Center>
-              {imageElement}
-              <Center>
-                <CanEatText canEat={canEat} />
-              </Center>
-              <Text>{description}</Text>
-            </Box>
-          </Center>
-        </article>
+        <ItemCard item={item} />
       </main>
     </>
   );
