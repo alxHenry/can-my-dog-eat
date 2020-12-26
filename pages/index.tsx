@@ -1,9 +1,9 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import styles from "../styles/Home.module.css";
 import { ItemModel, RawItemDocument } from "../types/ItemModel";
 import { connectToDatabase } from "../util/mongodb";
+import { Link as UILink } from "@chakra-ui/react";
 import { FC } from "react";
 
 interface HomeProps {
@@ -17,7 +17,7 @@ const Home: FC<HomeProps> = ({ recentItems }) => {
       <p>Can Eat?: {canEat}</p>
       <p>Description: {description}</p>
       <Link href={`/items/${id}`}>
-        <a>View page</a>
+        <UILink color="#0000FF">View page</UILink>
       </Link>
     </section>
   ));

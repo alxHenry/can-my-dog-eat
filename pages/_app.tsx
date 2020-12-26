@@ -7,6 +7,8 @@ import SiteFooter from "../components/SiteFooter";
 import { logPageView } from "../util/gtag";
 import { ChakraProvider } from "@chakra-ui/react";
 
+import styles from "./_app.module.css";
+
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter();
 
@@ -23,9 +25,15 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <ChakraProvider>
-      <SiteHeader />
-      <Component {...pageProps} />
-      <SiteFooter />
+      <div className={styles.appContainer}>
+        <div className={styles.appContent}>
+          <SiteHeader />
+          <Component {...pageProps} />
+        </div>
+        <footer className={styles.appStickyFooter}>
+          <SiteFooter />
+        </footer>
+      </div>
     </ChakraProvider>
   );
 };

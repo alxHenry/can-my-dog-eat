@@ -1,0 +1,14 @@
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.appContent {
+  flex-grow: 1;
+}
+
+.appStickyFooter {
+  flex-basis: 28px;
+  background-color: #2c4e64;
+}
