@@ -20,10 +20,10 @@ const ItemPreviewCard: FC<ItemPreviewCardProps> = ({ item }) => {
     <Link href={getItemUrl(item)}>
       <Box borderWidth="1px" borderColor="#e2e8ef" borderRadius="8px" cursor="pointer">
         <Grid h="140px" templateRows="repeat(2, 1fr)" templateColumns="repeat(5, 1fr)" gap={4}>
-          <GridItem rowSpan={2} colSpan={1}>
+          <GridItem rowSpan={2} colSpan={{ base: 2, sm: 1 }}>
             <img className={styles.cardThumbnail} src={imageLink} alt={name} />
           </GridItem>
-          <GridItem colSpan={4}>
+          <GridItem colSpan={{ base: 3, sm: 4 }}>
             <Text fontWeight="bold">{capitalizeFirstLetter(name)}</Text>
             <Text fontWeight="bold">
               Can eat?:{" "}
@@ -32,7 +32,7 @@ const ItemPreviewCard: FC<ItemPreviewCardProps> = ({ item }) => {
               </Text>
             </Text>
           </GridItem>
-          <GridItem colSpan={4}>
+          <GridItem colSpan={{ base: 3, sm: 4 }}>
             <Text lineHeight="24px" height="48px" overflow="hidden">
               {description}
             </Text>

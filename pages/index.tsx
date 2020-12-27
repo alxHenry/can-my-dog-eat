@@ -3,9 +3,10 @@ import Head from "next/head";
 import { ItemModel, RawItemDocument } from "../types/ItemModel";
 import { connectToDatabase } from "../util/mongodb";
 import { FC } from "react";
-import { Box, Center, VStack } from "@chakra-ui/react";
+import { Box, Center, Heading, VStack } from "@chakra-ui/react";
 import ItemPreviewCard from "../components/ItemPreviewCard";
 import { processItem } from "../util/process";
+import styles from "./index.module.css";
 
 interface HomeProps {
   readonly recentItems: ItemModel[];
@@ -29,8 +30,12 @@ const Home: FC<HomeProps> = ({ recentItems }) => {
       <main>
         <article>
           <Center>
-            <Box>
-              <h2>Recent Items</h2>
+            <Box marginX="8px">
+              <Center>
+                <Heading as="h2" className={styles.recentItemsHeader}>
+                  Recent Items
+                </Heading>
+              </Center>
               <VStack spacing="8px" maxWidth="700px">
                 {recentItemsList}
               </VStack>
