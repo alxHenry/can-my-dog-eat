@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Center, Link as UILink } from "@chakra-ui/react";
 
 import styles from "./SiteFooter.module.css";
+import { getCreditsUrl } from "../../util/urls";
 
 const SiteFooter: FC = () => {
   return (
@@ -11,7 +12,7 @@ const SiteFooter: FC = () => {
       <section id="copyright">
         <h5 className="SEO-safe-hidden">Attribution and Copyright</h5>
         <Center>
-          <Link href="/credits">
+          <Link href={getCreditsUrl()}>
             <UILink>Credits</UILink>
           </Link>
         </Center>

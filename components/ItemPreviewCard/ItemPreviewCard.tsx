@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import styles from "./ItemPreviewCard.module.css";
 import { canEatEnumToText, canEatEnumToTextColor } from "../../util/canEat";
+import { getItemUrl } from "../../util/urls";
 
 interface ItemPreviewCardProps {
   item: ItemModel;
@@ -12,9 +13,11 @@ interface ItemPreviewCardProps {
 
 const capitalizeFirstLetter = (str: string) => str[0].toUpperCase() + str.substring(1);
 
-const ItemPreviewCard: FC<ItemPreviewCardProps> = ({ item: { canEat, description, id, name, imageLink } }) => {
+const ItemPreviewCard: FC<ItemPreviewCardProps> = ({ item }) => {
+  const { canEat, description, name, imageLink } = item;
+
   return (
-    <Link href={`/items/${id}`}>
+    <Link href={getItemUrl(item)}>
       <Box borderWidth="1px" borderColor="#e2e8ef" borderRadius="8px" cursor="pointer">
         <Grid h="140px" templateRows="repeat(2, 1fr)" templateColumns="repeat(5, 1fr)" gap={4}>
           <GridItem rowSpan={2} colSpan={1}>

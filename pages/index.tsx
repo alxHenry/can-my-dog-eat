@@ -5,6 +5,7 @@ import { connectToDatabase } from "../util/mongodb";
 import { FC } from "react";
 import { Box, Center, VStack } from "@chakra-ui/react";
 import ItemPreviewCard from "../components/ItemPreviewCard";
+import { processItem } from "../util/process";
 
 interface HomeProps {
   readonly recentItems: ItemModel[];
@@ -45,14 +46,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const { db } = await connectToDatabase();
   const recentItems: RawItemDocument[] = await db.collection("items").find({}).limit(10).toArray();
 
-  const processed = recentItems.map<ItemModel>((item) => ({
-    id: item._id.toHexString(),
-    name: item.name,
-    canEat: item.canEat,
-    description: item.description,
-    category: item.category,
-    imageLink: item.imageLink,
-  }));
+  const processed = recentItems.map(processItem);
 
   return {
     props: {

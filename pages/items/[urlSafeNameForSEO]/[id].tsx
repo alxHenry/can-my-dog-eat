@@ -1,10 +1,12 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import React, { FC } from "react";
-import { connectToDatabase, getAllItems } from "../../util/mongodb";
+import { connectToDatabase, getAllItems } from "../../../util/mongodb";
 import { ObjectId } from "mongodb";
-import { ItemModel, RawItemDocument } from "../../types/ItemModel";
-import ItemCard from "../../components/ItemCard/ItemCard";
+import { ItemModel, RawItemDocument } from "../../../types/ItemModel";
+import ItemCard from "../../../components/ItemCard/ItemCard";
+import { getItemUrl } from "../../../util/urls";
+import { processItem } from "../../../util/process";
 
 interface ItemProps {
   item: ItemModel;
@@ -28,7 +30,8 @@ const Item: FC<ItemProps> = ({ item }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const items = await getAllItems();
-  const paths = items.map((item: any) => `/items/${item._id.toString()}`);
+  const processedItems = items.map(processItem);
+  const paths = processedItems.map(getItemUrl);
 
   return {
     paths,
@@ -48,18 +51,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return { notFound: true };
   }
 
-  const processed: ItemModel = {
-    id: item._id.toHexString(),
-    name: item.name,
-    description: item.description,
-    canEat: item.canEat,
-    category: item.category,
-    imageLink: item.imageLink,
-  };
-
   return {
     props: {
-      item: processed,
+      item: processItem(item),
     },
   };
 };
