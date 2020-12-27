@@ -27,7 +27,7 @@ const ItemPreviewCard: FC<ItemPreviewCardProps> = ({ item }) => {
             <Text fontWeight="bold">{capitalizeFirstLetter(name)}</Text>
             <Text fontWeight="bold">
               Can eat?:{" "}
-              <Text fontWeight="normal" display="inline" color={canEatEnumToTextColor(canEat)}>
+              <Text as="span" fontWeight="normal" display="inline" color={canEatEnumToTextColor(canEat)}>
                 {canEatEnumToText(canEat)}
               </Text>
             </Text>
