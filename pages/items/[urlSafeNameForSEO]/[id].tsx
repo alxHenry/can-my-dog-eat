@@ -13,13 +13,20 @@ interface ItemProps {
 }
 
 const Item: FC<ItemProps> = ({ item }) => {
-  const { name } = item;
+  const { name, imageLink } = item;
+  const headline = `Can dogs eat ${name}?`;
+  const richSearchImages = imageLink ? `, "image": ["${imageLink}"]` : "";
 
   return (
     <>
       <Head>
         <title>Can dogs eat {name}?</title>
-        <meta name="Description" content={`Can dogs eat ${name}?`}></meta>
+        <meta name="Description" content={headline}></meta>
+        <script type="application/ld+json">
+          {"{"}
+          "@context": "https://schema.org", "@type": "BlogPosting", "headline": "{headline}"{richSearchImages}
+          {"}"}
+        </script>
       </Head>
       <main>
         <ItemCard item={item} />
