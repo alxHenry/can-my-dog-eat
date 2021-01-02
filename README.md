@@ -18,8 +18,6 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
 ## Deploy on Vercel
 
 Pushing to the "production" branch will automatically kick off a build and deploy to production at https://candogsdine.com.
