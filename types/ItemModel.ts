@@ -10,6 +10,9 @@ export enum ItemCategory {
   Vegetable = "vegetable",
   Sweets = "sweets",
   Fish = "fish",
+  Fruits = "fruits",
+  Nuts = "nuts",
+  Dairy = "dairy",
 }
 
 export interface RawItemDocument {
