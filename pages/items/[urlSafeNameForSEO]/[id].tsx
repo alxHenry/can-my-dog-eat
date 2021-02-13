@@ -7,12 +7,14 @@ import { ItemModel, RawItemDocument } from "../../../types/ItemModel";
 import ItemCard from "../../../components/ItemCard/ItemCard";
 import { getItemUrl } from "../../../util/urls";
 import { processItem } from "../../../util/process";
+import RelatedItemsCard from "../../../components/RelatedItemsCard";
 
 interface ItemProps {
-  item: ItemModel;
+  readonly item: ItemModel;
+  readonly relatedItems: ItemModel[];
 }
 
-const Item: FC<ItemProps> = ({ item }) => {
+const Item: FC<ItemProps> = ({ item, relatedItems }) => {
   const { name, imageLink } = item;
   const headline = `Can dogs eat ${name}?`;
   const richSearchImages = imageLink ? { image: [imageLink] } : {};
@@ -33,6 +35,7 @@ const Item: FC<ItemProps> = ({ item }) => {
       </Head>
       <main>
         <ItemCard item={item} />
+        <RelatedItemsCard relatedItems={relatedItems} />
       </main>
     </>
   );
@@ -61,9 +64,19 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return { notFound: true };
   }
 
+  const rawRelatedItems: RawItemDocument[] = await db
+    .collection("items")
+    .find({
+      category: item.category,
+    })
+    .limit(6)
+    .toArray();
+  const relatedItems = rawRelatedItems.map((rawItem) => processItem(rawItem));
+
   return {
     props: {
       item: processItem(item),
+      relatedItems,
     },
   };
 };

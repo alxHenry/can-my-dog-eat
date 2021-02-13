@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { ItemModel } from "../../types/ItemModel";
-import { Box, Center, Text } from "@chakra-ui/react";
+import { Center, Text } from "@chakra-ui/react";
+import Card from "../Card";
 
 import CanEatText from "./CanEatText";
 import styles from "./ItemCard.module.css";
@@ -19,7 +20,7 @@ const ItemCard: FC<ItemCardProps> = ({ item: { name, canEat, description, imageL
   return (
     <article>
       <Center>
-        <Box borderWidth="1px" borderColor="#e2e8ef" borderRadius="8px" padding="20px" marginX="8px">
+        <Card>
           <Center>
             <h2 className={styles.itemHeader}>Can dogs eat {name}?</h2>
           </Center>
@@ -28,7 +29,7 @@ const ItemCard: FC<ItemCardProps> = ({ item: { name, canEat, description, imageL
             <CanEatText canEat={canEat} />
           </Center>
           <Text>{description}</Text>
-        </Box>
+        </Card>
       </Center>
     </article>
   );

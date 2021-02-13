@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { ItemModel } from "../../types/ItemModel";
-import { Box, Container, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
 import Link from "next/link";
 
 import styles from "./ItemPreviewCard.module.css";
