@@ -1,12 +1,12 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
-import { ItemModel, RawItemDocument } from "../types/ItemModel";
-import { connectToDatabase } from "../util/mongodb";
+import { ItemModel } from "../types/ItemModel";
 import { FC } from "react";
 import { Box, Center, Heading, VStack } from "@chakra-ui/react";
 import ItemPreviewCard from "../components/ItemPreviewCard";
 import { processItem } from "../util/process";
 import styles from "./index.module.css";
+import { getRecentItems } from "../db/getRecentItems";
 
 interface HomeProps {
   readonly recentItems: ItemModel[];
@@ -48,9 +48,7 @@ const Home: FC<HomeProps> = ({ recentItems }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { db } = await connectToDatabase();
-  const recentItems: RawItemDocument[] = await db.collection("items").find({}).limit(10).toArray();
-
+  const recentItems = await getRecentItems();
   const processed = recentItems.map(processItem);
 
   return {
