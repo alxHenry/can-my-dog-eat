@@ -7,12 +7,16 @@ import { ItemModel, RawItemDocument } from "../../../types/ItemModel";
 import ItemCard from "../../../components/ItemCard/ItemCard";
 import { getItemUrl } from "../../../util/urls";
 import { processItem } from "../../../util/process";
+import RelatedItems from "../../../components/RelatedItems";
+
+import styles from "./[id].module.css";
 
 interface ItemProps {
-  item: ItemModel;
+  readonly item: ItemModel;
+  readonly relatedItems: ItemModel[];
 }
 
-const Item: FC<ItemProps> = ({ item }) => {
+const Item: FC<ItemProps> = ({ item, relatedItems }) => {
   const { name, imageLink } = item;
   const headline = `Can dogs eat ${name}?`;
   const richSearchImages = imageLink ? { image: [imageLink] } : {};
@@ -32,7 +36,14 @@ const Item: FC<ItemProps> = ({ item }) => {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(richSearchSchema) }} />
       </Head>
       <main>
-        <ItemCard item={item} />
+        <div className="row">
+          <div className={`col ${styles.item__card}`}>
+            <ItemCard item={item} />
+          </div>
+          <div className="col">
+            <RelatedItems relatedItems={relatedItems} />
+          </div>
+        </div>
       </main>
     </>
   );
@@ -55,15 +66,31 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 
   const { db } = await connectToDatabase();
-  const item: RawItemDocument | null = await db.collection("items").findOne({ _id: new ObjectId(params.id as string) });
+  const rawItem: RawItemDocument | null = await db
+    .collection("items")
+    .findOne({ _id: new ObjectId(params.id as string) });
 
-  if (!item) {
+  if (!rawItem) {
     return { notFound: true };
   }
 
+  const item = processItem(rawItem);
+  const rawRelatedItems: RawItemDocument[] = await db
+    .collection("items")
+    .find({
+      category: item.category,
+    })
+    .limit(6)
+    .toArray();
+
+  const relatedItems = rawRelatedItems
+    .map((rawItem) => processItem(rawItem))
+    .filter((toFilter) => toFilter.id !== item.id);
+
   return {
     props: {
-      item: processItem(item),
+      item,
+      relatedItems,
     },
   };
 };
