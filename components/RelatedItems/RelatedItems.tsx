@@ -20,7 +20,7 @@ const RelatedItems: FC<RelatedItemsProps> = ({ relatedItems }) => {
   ));
 
   return (
-    <Box as="section" paddingX="3em">
+    <Box as="section" paddingX="3em" paddingY="1em">
       <Heading as="h3" size="md" color="#2c4e64" marginBottom="1em">
         Related Items
       </Heading>
