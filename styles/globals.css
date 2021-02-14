@@ -18,3 +18,12 @@ ul {
   position: absolute;
   clip: rect(1px, 1px, 1px, 1px);
 }
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.col + .col {
+  margin-left: 0.5em;
+}

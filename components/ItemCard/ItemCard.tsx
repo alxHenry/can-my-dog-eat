@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { ItemModel } from "../../types/ItemModel";
-import { Center, Text } from "@chakra-ui/react";
+import { Box, Center, Text } from "@chakra-ui/react";
 import Card from "../Card";
 
 import CanEatText from "./CanEatText";
@@ -18,7 +18,7 @@ const ItemCard: FC<ItemCardProps> = ({ item: { name, canEat, description, imageL
   ) : null;
 
   return (
-    <article>
+    <Box as="article" maxWidth="700px">
       <Center>
         <Card>
           <Center>
@@ -31,7 +31,7 @@ const ItemCard: FC<ItemCardProps> = ({ item: { name, canEat, description, imageL
           <Text>{description}</Text>
         </Card>
       </Center>
-    </article>
+    </Box>
   );
 };
 

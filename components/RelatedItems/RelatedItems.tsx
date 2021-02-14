@@ -2,15 +2,14 @@ import { FC } from "react";
 import Link from "next/link";
 import { ItemModel } from "../../types/ItemModel";
 import { getItemUrl } from "../../util/urls";
-import { Box, Center, Heading, Link as UILink, List, ListItem, ListIcon } from "@chakra-ui/react";
+import { Box, Heading, Link as UILink, List, ListItem, ListIcon } from "@chakra-ui/react";
 import { LinkIcon } from "@chakra-ui/icons";
-import Card from "../Card";
 
-interface RelatedItemsCardProps {
+interface RelatedItemsProps {
   readonly relatedItems: ItemModel[];
 }
 
-const RelatedItemsCard: FC<RelatedItemsCardProps> = ({ relatedItems }) => {
+const RelatedItems: FC<RelatedItemsProps> = ({ relatedItems }) => {
   const itemLinks = relatedItems.map((item) => (
     <Link href={getItemUrl(item)} key={item.id}>
       <ListItem>
@@ -21,17 +20,13 @@ const RelatedItemsCard: FC<RelatedItemsCardProps> = ({ relatedItems }) => {
   ));
 
   return (
-    <section>
-      <Center>
-        <Card>
-          <Heading as="h3" size="md" color="#2c4e64">
-            Related Items
-          </Heading>
-          <List spacing={3}>{itemLinks}</List>
-        </Card>
-      </Center>
-    </section>
+    <Box as="section" paddingX="3em">
+      <Heading as="h3" size="md" color="#2c4e64" marginBottom="1em">
+        Related Items
+      </Heading>
+      <List spacing={3}>{itemLinks}</List>
+    </Box>
   );
 };
 
-export default RelatedItemsCard;
+export default RelatedItems;

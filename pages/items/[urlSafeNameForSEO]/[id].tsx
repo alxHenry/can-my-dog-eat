@@ -7,7 +7,9 @@ import { ItemModel, RawItemDocument } from "../../../types/ItemModel";
 import ItemCard from "../../../components/ItemCard/ItemCard";
 import { getItemUrl } from "../../../util/urls";
 import { processItem } from "../../../util/process";
-import RelatedItemsCard from "../../../components/RelatedItemsCard";
+import RelatedItems from "../../../components/RelatedItems";
+
+import styles from "./[id].module.css";
 
 interface ItemProps {
   readonly item: ItemModel;
@@ -34,8 +36,14 @@ const Item: FC<ItemProps> = ({ item, relatedItems }) => {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(richSearchSchema) }} />
       </Head>
       <main>
-        <ItemCard item={item} />
-        <RelatedItemsCard relatedItems={relatedItems} />
+        <div className="row">
+          <div className={`col ${styles.item__card}`}>
+            <ItemCard item={item} />
+          </div>
+          <div className="col">
+            <RelatedItems relatedItems={relatedItems} />
+          </div>
+        </div>
       </main>
     </>
   );
@@ -58,12 +66,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 
   const { db } = await connectToDatabase();
-  const item: RawItemDocument | null = await db.collection("items").findOne({ _id: new ObjectId(params.id as string) });
+  const rawItem: RawItemDocument | null = await db
+    .collection("items")
+    .findOne({ _id: new ObjectId(params.id as string) });
 
-  if (!item) {
+  if (!rawItem) {
     return { notFound: true };
   }
 
+  const item = processItem(rawItem);
   const rawRelatedItems: RawItemDocument[] = await db
     .collection("items")
     .find({
@@ -71,11 +82,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     })
     .limit(6)
     .toArray();
-  const relatedItems = rawRelatedItems.map((rawItem) => processItem(rawItem));
+
+  const relatedItems = rawRelatedItems
+    .map((rawItem) => processItem(rawItem))
+    .filter((toFilter) => toFilter.id !== item.id);
 
   return {
     props: {
-      item: processItem(item),
+      item,
       relatedItems,
     },
   };
