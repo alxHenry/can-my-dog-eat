@@ -1,10 +1,11 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
+import { Box } from "@chakra-ui/react";
 import React, { FC } from "react";
 import { connectToDatabase, getAllItems } from "../../../util/mongodb";
 import { ObjectId } from "mongodb";
 import { ItemModel, RawItemDocument } from "../../../types/ItemModel";
-import ItemCard from "../../../components/ItemCard/ItemCard";
+import ItemCard from "../../../components/ItemCard";
 import { getItemUrl } from "../../../util/urls";
 import { processItem } from "../../../util/process";
 import RelatedItems from "../../../components/RelatedItems";
@@ -36,14 +37,14 @@ const Item: FC<ItemProps> = ({ item, relatedItems }) => {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(richSearchSchema) }} />
       </Head>
       <main>
-        <div className="row">
-          <div className={`col ${styles.item__card}`}>
+        <Box className="row">
+          <Box className={`col ${styles.item__card}`}>
             <ItemCard item={item} />
-          </div>
-          <div className="col">
+          </Box>
+          <Box className="col" minWidth="200px">
             <RelatedItems relatedItems={relatedItems} />
-          </div>
-        </div>
+          </Box>
+        </Box>
       </main>
     </>
   );
