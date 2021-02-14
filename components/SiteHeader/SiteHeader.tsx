@@ -1,11 +1,19 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Link from "next/link";
-import { HStack } from "@chakra-ui/react";
+import { HStack, IconButton, Input } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
 
 import styles from "./SiteHeader.module.css";
 import { getHomeUrl } from "../../util/urls";
 
 const SiteHeader: FC = () => {
+  const [inputHidden, setInputHidden] = useState(true);
+  const inputDisplayClass = inputHidden ? styles.inputHidden : styles.inputShown;
+
+  const toggleInput = () => {
+    setInputHidden((hidden) => !hidden);
+  };
+
   return (
     <>
       <header className={styles.headerBar}>
@@ -23,9 +31,24 @@ const SiteHeader: FC = () => {
               />
             </Link>
           </nav>
-          <Link href={getHomeUrl()}>
-            <h1 className={styles.headerTitle}>Can Dogs Dine?</h1>
-          </Link>
+          <IconButton
+            aria-label="Search items"
+            background="none"
+            icon={<SearchIcon boxSize="24px" color="white" />}
+            onClick={toggleInput}
+          />
+          <Input
+            color="white"
+            maxWidth="30ch"
+            borderRadius={0}
+            borderTop="none"
+            borderX="none"
+            borderColor="#e6e6e6"
+            focusBorderColor="#e6e6e6"
+            fontSize="1.5em"
+            className={inputDisplayClass}
+            style={{ boxShadow: "none" }}
+          />
         </HStack>
       </header>
       <div className={styles.headerSpacer} />

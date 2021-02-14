@@ -8,18 +8,20 @@
   z-index: 1;
 }
 
-.headerTitle {
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 28px;
-  font-family: "Noto Sans JP", sans-serif;
-  cursor: pointer;
-}
-
 .headerLogo {
   cursor: pointer;
+  min-width: 48px;
+  min-height: 48px;
 }
 
 .headerSpacer {
   margin-top: 80px;
+}
+
+.inputHidden {
+  display: none;
+}
+
+.inputShown {
+  display: initial;
 }
