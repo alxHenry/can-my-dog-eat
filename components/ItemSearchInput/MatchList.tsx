@@ -8,12 +8,13 @@ import { getItemUrl } from "../../util/urls";
 
 interface MatchesListProps {
   readonly matches: ItemModel[];
+  readonly onClick: () => void;
 }
 
-const MatchesList: FC<MatchesListProps> = ({ matches }) => {
+const MatchesList: FC<MatchesListProps> = ({ matches, onClick }) => {
   const matchesListItems = matches.map((match) => (
     <Link key={match.id} href={getItemUrl(match)}>
-      <ListItem className={styles.matchListItem}>
+      <ListItem className={styles.matchListItem} onClick={onClick}>
         <Text fontSize="1.5rem">{match.name}</Text>
       </ListItem>
     </Link>

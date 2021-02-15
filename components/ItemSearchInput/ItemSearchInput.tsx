@@ -12,6 +12,10 @@ const ItemSearchInput: FC = () => {
   const toggleInput = () => {
     setInputHidden((hidden) => !hidden);
   };
+  const hideInput = () => {
+    setQueryText("");
+    setInputHidden(true);
+  };
   const onInputChange = (evt: React.FormEvent<HTMLInputElement>) => {
     setQueryText(evt.currentTarget.value);
   };
@@ -29,6 +33,7 @@ const ItemSearchInput: FC = () => {
       />
       <Box position="relative" className="col" display={inputDisplay}>
         <Input
+          value={queryText}
           onChange={onInputChange}
           color="white"
           maxWidth="30ch"
@@ -41,7 +46,7 @@ const ItemSearchInput: FC = () => {
           style={{ boxShadow: "none" }}
         />
         <Box position="absolute" top="100%" left={0} right={0}>
-          <MatchesList matches={matches} />
+          <MatchesList matches={matches} onClick={hideInput} />
         </Box>
       </Box>
     </Box>
