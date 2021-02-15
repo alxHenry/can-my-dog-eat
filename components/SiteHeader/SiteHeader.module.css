@@ -17,11 +17,3 @@
 .headerSpacer {
   margin-top: 80px;
 }
-
-.inputHidden {
-  display: none;
-}
-
-.inputShown {
-  display: initial;
-}
