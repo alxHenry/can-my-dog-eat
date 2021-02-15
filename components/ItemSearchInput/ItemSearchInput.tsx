@@ -1,7 +1,8 @@
-import { FC, useState } from "react";
-import { IconButton, Input } from "@chakra-ui/react";
+import React, { FC, useState } from "react";
+import { Box, IconButton, Input } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useNameSearch } from "./useNameSearch";
+import MatchesList from "./MatchList";
 
 const ItemSearchInput: FC = () => {
   const [queryText, setQueryText] = useState("");
@@ -18,7 +19,7 @@ const ItemSearchInput: FC = () => {
   const matches = useNameSearch(queryText);
 
   return (
-    <div className="row">
+    <Box className="row">
       <IconButton
         className="col"
         aria-label="Search items"
@@ -26,21 +27,24 @@ const ItemSearchInput: FC = () => {
         icon={<SearchIcon boxSize="24px" color="white" />}
         onClick={toggleInput}
       />
-      <Input
-        className="col"
-        onChange={onInputChange}
-        color="white"
-        maxWidth="30ch"
-        borderRadius={0}
-        borderTop="none"
-        borderX="none"
-        borderColor="#e6e6e6"
-        focusBorderColor="#e6e6e6"
-        fontSize="1.5em"
-        display={inputDisplay}
-        style={{ boxShadow: "none" }}
-      />
-    </div>
+      <Box position="relative" className="col" display={inputDisplay}>
+        <Input
+          onChange={onInputChange}
+          color="white"
+          maxWidth="30ch"
+          borderRadius={0}
+          borderTop="none"
+          borderX="none"
+          borderColor="#f2f2f2"
+          focusBorderColor="#f2f2f2"
+          fontSize="1.5rem"
+          style={{ boxShadow: "none" }}
+        />
+        <Box position="absolute" top="100%" left={0} right={0}>
+          <MatchesList matches={matches} />
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
