@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { List, ListItem, Text } from "@chakra-ui/react";
+import { Box, List, ListItem, Text } from "@chakra-ui/react";
 import { FC } from "react";
 import { ItemModel } from "../../types/ItemModel";
 
@@ -21,9 +21,9 @@ const MatchesList: FC<MatchesListProps> = ({ matches, onClick }) => {
   ));
 
   return (
-    <List backgroundColor="white" borderColor="#f2f2f2" borderWidth="1px" borderTop="none">
-      {matchesListItems}
-    </List>
+    <Box position="absolute" top="100%" left={0} right={0}>
+      <List backgroundColor="white">{matchesListItems}</List>
+    </Box>
   );
 };
 

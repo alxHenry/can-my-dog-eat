@@ -1,7 +1,7 @@
 .matchListItem {
   padding: 1em;
   margin: 0;
-  border-bottom: #f2f2f2 1px solid;
+  border: #f2f2f2 1px solid;
   cursor: pointer;
 }
 
