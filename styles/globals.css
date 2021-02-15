@@ -27,9 +27,3 @@ ul {
 .col + .col {
   margin-left: 0.5em;
 }
-
-@media (max-width: 699px) {
-  .row {
-    display: block;
-  }
-}

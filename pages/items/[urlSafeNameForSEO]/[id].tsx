@@ -37,7 +37,7 @@ const Item: FC<ItemProps> = ({ item, relatedItems }) => {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(richSearchSchema) }} />
       </Head>
       <main>
-        <Box className="row">
+        <Box className={styles.container}>
           <Box className={`col ${styles.item__card}`}>
             <ItemCard item={item} />
           </Box>
