@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getMatchingItemNames } from "../../db/getMatchingItemNames";
+import { processItem } from "../../util/process";
 
 const search = async (req: NextApiRequest, res: NextApiResponse) => {
   let { searchText = "" } = req.query;
@@ -13,8 +14,9 @@ const search = async (req: NextApiRequest, res: NextApiResponse) => {
     searchText = searchText[0];
   }
 
-  const matches = await getMatchingItemNames(searchText);
-  res.status(200).json(matches);
+  const rawMatches = await getMatchingItemNames(searchText);
+  const processedMatches = rawMatches.map(processItem);
+  res.status(200).json(processedMatches);
 };
 
 export default search;

@@ -1,6 +1,7 @@
+import { RawItemDocument } from "../types/ItemModel";
 import { connectToDatabase } from "../util/mongodb";
 
-export const getMatchingItemNames = async (queryText: string) => {
+export const getMatchingItemNames = async (queryText: string): Promise<RawItemDocument[]> => {
   const { db } = await connectToDatabase();
 
   return db
@@ -10,7 +11,7 @@ export const getMatchingItemNames = async (queryText: string) => {
         $search: {
           index: "name search",
           autocomplete: {
-            query: "broc",
+            query: queryText,
             path: "name",
             fuzzy: {
               maxEdits: 2,

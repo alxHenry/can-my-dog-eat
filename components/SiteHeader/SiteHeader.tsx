@@ -4,6 +4,7 @@ import { HStack } from "@chakra-ui/react";
 
 import styles from "./SiteHeader.module.css";
 import { getHomeUrl } from "../../util/urls";
+import ItemSearchInput from "../ItemSearchInput";
 
 const SiteHeader: FC = () => {
   return (
@@ -23,9 +24,7 @@ const SiteHeader: FC = () => {
               />
             </Link>
           </nav>
-          <Link href={getHomeUrl()}>
-            <h1 className={styles.headerTitle}>Can Dogs Dine?</h1>
-          </Link>
+          <ItemSearchInput />
         </HStack>
       </header>
       <div className={styles.headerSpacer} />
