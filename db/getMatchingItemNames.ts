@@ -11,7 +11,7 @@ export const getMatchingItemNames = async (queryText: string): Promise<RawItemDo
         $search: {
           index: "name search",
           autocomplete: {
-            query: "broc",
+            query: queryText,
             path: "name",
             fuzzy: {
               maxEdits: 2,
